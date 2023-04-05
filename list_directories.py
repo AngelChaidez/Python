@@ -1,10 +1,10 @@
 #!/usr/bin/env python3.11
 
 
-"""
-list all files, directories and subdirectories's files in a given directory source of help for this 
-from stackoverflow: https://stackoverflow.com/questions/2909975/python-list-directory-subdirectory-and-files
-"""
+
+# list all files, directories and subdirectories's files in a given directory source of help for this 
+# from stackoverflow: https://stackoverflow.com/questions/2909975/python-list-directory-subdirectory-and-files
+
 def list_files_recursive(directory, files, recursive_dictionary):
     print("Printing files and directories recursively")
     for root, dirs, files in os.walk(directory):
@@ -14,13 +14,13 @@ def list_files_recursive(directory, files, recursive_dictionary):
     
 
 
-"""
-List all files and filesizes in a user provided directory. We will use the os.walk() function to walk through our 
-directory and list all files and their sizes. size_of_file() will return the size of the file in bytes, and the 
-directory[files[0]] will update our dictionary with the name of the file and the corresponding size of the file.
-REFERENCES: 
-https://www.geeksforgeeks.org/how-to-get-file-size-in-python/
-"""
+
+# List all files and filesizes in a user provided directory. We will use the os.walk() function to walk through our 
+# directory and list all files and their sizes. size_of_file() will return the size of the file in bytes, and the 
+# directory[files[0]] will update our dictionary with the name of the file and the corresponding size of the file.
+# REFERENCES: 
+# https://www.geeksforgeeks.org/how-to-get-file-size-in-python/
+
 def list_directory_files(directory):
     print("Printing your files and sizes in directory:" , directory)
     files = os.listdir(directory)
@@ -86,9 +86,9 @@ if __name__ == "__main__":
 
     # Uncomment the following to have both the files only dictionary print in json formatting and/or have the recursive dictionary print in 
     # json formatting. WARNING: This will take up all of your screen if you have directories will large amount of directories/subdirectories
-    # and files. YOU HAVE BEEN WARNED
+    # and files. YOU HAVE BEEN WARNED 
 
-    print_dict_as_json(dictionary)
+    #print_dict_as_json(dictionary)
     #print_dict_as_json(recursive_dictionary)
    
 
