@@ -37,6 +37,10 @@ def print_dict_as_json(dictionary):
     print(seperator, json.dumps(dictionary, indent=4, sort_keys=True), seperator)
 
 
+def print_dict_with_keys(dictionary):
+    print("Printing dictionary with keys:")
+    new_dictionary = {"files": dictionary.keys(), "sizes": dictionary.values()}
+    print(seperator, next(iter(new_dictionary.items())), '\n',seperator)
 
 
 # Create a dictionary with list of files from a given directory, and print to the screen.
@@ -83,6 +87,8 @@ if __name__ == "__main__":
     files.sort()
     list_directory_files(directory)
     list_files_recursive(directory, files, recursive_dictionary)
+    print_dict_with_keys(dictionary)
+    
 
     # Uncomment the following to have both the files only dictionary print in json formatting and/or have the recursive dictionary print in 
     # json formatting. WARNING: This will take up all of your screen if you have directories will large amount of directories/subdirectories
