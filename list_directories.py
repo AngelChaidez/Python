@@ -8,7 +8,7 @@
 # and the values are the name of the file
 
 def list_files_recursive(directory, files, recursive_dictionary):
-    print("Printing files and directories recursively :")
+    print("Printing files and directories recursively with keys as fullpath and filename:")
     for root, dirs, files in os.walk(directory):
         for file in files:
             recursive_dictionary[root + "/" + file] = file
@@ -24,7 +24,8 @@ def list_files_recursive(directory, files, recursive_dictionary):
 # https://www.geeksforgeeks.org/how-to-get-file-size-in-python/
 
 def list_directory_files(directory):
-    print("Printing your files and sizes only in directory:" , directory)
+    print("Printing your files and sizes only in directory:" , directory )
+    print("with keys {filename: size_of_file:}")
     files = os.listdir(directory)
     files.sort()
     list_dictionary = []
@@ -43,7 +44,7 @@ def print_dict_as_json(dictionary):
 
 
 def print_dict_with_keys(directory):
-    print("Printing dictionary with keys:")
+    print("Printing dictionary with keys in format of {path: filename: size_of_file:} as keys")
     files = os.listdir(directory)
     files.sort()
     list_dictionary = []
@@ -52,7 +53,7 @@ def print_dict_with_keys(directory):
             size_of_file = os.path.getsize(root + "/" + file)
             new_dictionary = {"path": root, "filename": file, "size": size_of_file}
             list_dictionary.append(new_dictionary)
-    print(list_dictionary)
+    print(seperator, list_dictionary, '\n', seperator)
     #print_dict_as_json(list_dictionary)
 
 
