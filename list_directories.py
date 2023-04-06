@@ -13,6 +13,7 @@ def list_files_recursive(directory, files, recursive_dictionary):
         for file in files:
             recursive_dictionary[root + "/" + file] = file
     print(seperator, recursive_dictionary, '\n',seperator)
+    return recursive_dictionary
     
 
 
@@ -29,12 +30,13 @@ def list_directory_files(directory):
     files = os.listdir(directory)
     files.sort()
     list_dictionary = []
-    for dirs in os.walk(directory):
+    for root, dirs, files in os.walk(directory):
         for file in files:
-            size_of_file = os.path.getsize(dirs[0] + "/" + file)
-            dictionary = {"file": files[0], "size": size_of_file}
+            size_of_file = os.path.getsize(root + "/" + file)
+            dictionary = {"file": file, "size": size_of_file}
             list_dictionary.append(dictionary)
     print(seperator, list_dictionary, '\n',seperator)
+    
   
 
 
@@ -54,7 +56,15 @@ def print_dict_with_keys(directory):
             new_dictionary = {"path": root, "filename": file, "size": size_of_file}
             list_dictionary.append(new_dictionary)
     print(seperator, list_dictionary, '\n', seperator)
-    #print_dict_as_json(list_dictionary)
+    #print_dict_as_json(list_dictionary) #uncomment if you would like you list also in json format
+    return list_dictionary
+
+
+def convert_list_to_dictionary(list_of_dictionary):
+    print("Converting list to dictionary:")
+    pairs = itertools.zip_longest(*[iter(list_of_dictionary)]*2, fillvalue=None)
+    dictionary_from_list = {key: value for key, value in pairs}
+    return dictionary_from_list
 
 
 # Create a dictionary with list of files from a given directory, and print to the screen.
@@ -66,6 +76,7 @@ if __name__ == "__main__":
     import os
     import sys
     import json
+    import itertools
     
 
     
@@ -90,7 +101,8 @@ if __name__ == "__main__":
             size_of_file = os.stat(file).st_size
             dictionary[file] = size_of_file
         print(seperator, dictionary, '\n',seperator)
-        print_dict_as_json(dictionary)
+        list_directory_files(directory)
+        #print_dict_as_json(dictionary) # uncomment if you would like you list also in json format
         quit() # Exit the program and not process any further files
 
     # Create a list of all of the files in the directory with os.listdir() commmand, and sort it. We will then call our two functions
@@ -102,6 +114,11 @@ if __name__ == "__main__":
     list_directory_files(directory)
     print_dict_with_keys(directory)
     list_files_recursive(directory, files, recursive_dictionary)
+
+    dictionary = print_dict_with_keys(directory)
+
+    #convert_list_to_dictionary(dictionary)
+    # Convert the dictionary to a list of dictionaries, and print to the screen.
     
 
     
