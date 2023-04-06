@@ -4,9 +4,11 @@
 
 # list all files, directories and subdirectories's files in a given directory source of help for this 
 # from stackoverflow: https://stackoverflow.com/questions/2909975/python-list-directory-subdirectory-and-files
+# this function will not print out with formatted keys and values instead the keys are the path of the file 
+# and the values are the name of the file
 
 def list_files_recursive(directory, files, recursive_dictionary):
-    print("Printing files and directories recursively")
+    print("Printing files and directories recursively :")
     for root, dirs, files in os.walk(directory):
         for file in files:
             recursive_dictionary[root + "/" + file] = file
@@ -22,14 +24,17 @@ def list_files_recursive(directory, files, recursive_dictionary):
 # https://www.geeksforgeeks.org/how-to-get-file-size-in-python/
 
 def list_directory_files(directory):
-    print("Printing your files and sizes in directory:" , directory)
+    print("Printing your files and sizes only in directory:" , directory)
     files = os.listdir(directory)
     files.sort()
-    dictionary = {}
-    for files in os.walk(directory):
-        size_of_file = os.path.getsize(files[0])
-        dictionary[files[0]] = size_of_file
-    print(seperator, dictionary, '\n',seperator)
+    list_dictionary = []
+    for dirs in os.walk(directory):
+        for file in files:
+            size_of_file = os.path.getsize(dirs[0] + "/" + file)
+            dictionary = {"file": files[0], "size": size_of_file}
+            list_dictionary.append(dictionary)
+    print(seperator, list_dictionary, '\n',seperator)
+  
 
 
 def print_dict_as_json(dictionary):
@@ -37,10 +42,18 @@ def print_dict_as_json(dictionary):
     print(seperator, json.dumps(dictionary, indent=4, sort_keys=True), seperator)
 
 
-def print_dict_with_keys(dictionary):
+def print_dict_with_keys(directory):
     print("Printing dictionary with keys:")
-    new_dictionary = {"files": dictionary.keys(), "sizes": dictionary.values()}
-    print(seperator, next(iter(new_dictionary.items())), '\n',seperator)
+    files = os.listdir(directory)
+    files.sort()
+    list_dictionary = []
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            size_of_file = os.path.getsize(root + "/" + file)
+            new_dictionary = {"path": root, "filename": file, "size": size_of_file}
+            list_dictionary.append(new_dictionary)
+    print(list_dictionary)
+    #print_dict_as_json(list_dictionary)
 
 
 # Create a dictionary with list of files from a given directory, and print to the screen.
@@ -86,16 +99,11 @@ if __name__ == "__main__":
     files = os.listdir(directory)
     files.sort()
     list_directory_files(directory)
+    print_dict_with_keys(directory)
     list_files_recursive(directory, files, recursive_dictionary)
-    print_dict_with_keys(dictionary)
     
 
-    # Uncomment the following to have both the files only dictionary print in json formatting and/or have the recursive dictionary print in 
-    # json formatting. WARNING: This will take up all of your screen if you have directories will large amount of directories/subdirectories
-    # and files. YOU HAVE BEEN WARNED 
-
-    #print_dict_as_json(dictionary)
-    #print_dict_as_json(recursive_dictionary)
+    
    
 
 
