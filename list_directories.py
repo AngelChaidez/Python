@@ -101,6 +101,7 @@ if __name__ == "__main__":
             size_of_file = os.stat(file).st_size
             dictionary[file] = size_of_file
         print(seperator, dictionary, '\n',seperator)
+        print(convert_list_to_dictionary(dictionary))
         list_directory_files(directory)
         #print_dict_as_json(dictionary) # uncomment if you would like you list also in json format
         quit() # Exit the program and not process any further files
