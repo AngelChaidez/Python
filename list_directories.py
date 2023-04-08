@@ -39,6 +39,7 @@ def list_directory_files(directory):
             list_dictionary.append(dictionary)
     print(seperator, list_dictionary, '\n',seperator)
     print(type(list_dictionary))
+    #print_dict_as_json(list_dictionary)   #uncomment this line if you want to print the dictionary as json file
     
   
 
