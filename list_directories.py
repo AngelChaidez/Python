@@ -13,6 +13,8 @@ def list_files_recursive(directory, files, recursive_dictionary):
         for file in files:
             recursive_dictionary[root + "/" + file] = file
     print(seperator, recursive_dictionary, '\n',seperator)
+    print(type(recursive_dictionary))
+    print_dict_as_json(recursive_dictionary)
     return recursive_dictionary
     
 
@@ -36,6 +38,7 @@ def list_directory_files(directory):
             dictionary = {"file": file, "size": size_of_file}
             list_dictionary.append(dictionary)
     print(seperator, list_dictionary, '\n',seperator)
+    print(type(list_dictionary))
     
   
 
@@ -56,9 +59,12 @@ def print_dict_with_keys(directory):
             new_dictionary = {"path": root, "filename": file, "size": size_of_file}
             list_dictionary.append(new_dictionary)
     print(seperator, list_dictionary, '\n', seperator)
+    print(type(list_dictionary))
     #print_dict_as_json(list_dictionary) #uncomment if you would like you list also in json format
     return list_dictionary
 
+# This function is suppose to turn a list into a dictionary, and return the dictionary
+# however, I could not get this to work, if anyone could help me with this function
 
 def convert_list_to_dictionary(list_of_dictionary):
     print("Converting list to dictionary:")
@@ -101,6 +107,8 @@ if __name__ == "__main__":
             size_of_file = os.stat(file).st_size
             dictionary[file] = size_of_file
         print(seperator, dictionary, '\n',seperator)
+        print(type(dictionary))
+
         print(convert_list_to_dictionary(dictionary))
         list_directory_files(directory)
         #print_dict_as_json(dictionary) # uncomment if you would like you list also in json format
@@ -112,11 +120,11 @@ if __name__ == "__main__":
 
     files = os.listdir(directory)
     files.sort()
-    list_directory_files(directory)
-    print_dict_with_keys(directory)
+    #list_directory_files(directory)
+    #print_dict_with_keys(directory)
     list_files_recursive(directory, files, recursive_dictionary)
 
-    dictionary = print_dict_with_keys(directory)
+    #dictionary = print_dict_with_keys(directory)
 
     #convert_list_to_dictionary(dictionary)
     # Convert the dictionary to a list of dictionaries, and print to the screen.
