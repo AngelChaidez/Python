@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -55,13 +56,18 @@ def fetch_data():
 def main():
     data = fetch_data()
     if data:
-        print("Date:")
-        print(data['title'])
-        print("\nScripture:")
-        print(data['scripture'])
-        print("\nDaily Text:")
+        output = []
+        output.append(f"Date:\n{data['title']}\n")
+        output.append(f"Scripture:\n{data['scripture']}\n")
+        output.append("Daily Text:\n")
         for item in data['body_texts']:
-            print(item)
+            output.append(f"{item}\n")
+
+        # Save the output to a text file
+        with open('/home/angelchaidez/GitHub/Python/daily-text-scraper/daily_text.txt', 'w') as f:
+            f.writelines(output)
+
+        print("Daily text saved to daily_text.txt")
     else:
         print("Failed to fetch data.")
 
